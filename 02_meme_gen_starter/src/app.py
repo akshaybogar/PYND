@@ -48,7 +48,7 @@ def meme_rand():
     path = meme.make_meme(img, quote.body, quote.author)
     return render_template('meme.html', path=path)
 
-
+'''
 @app.route('/create', methods=['GET'])
 def meme_form():
     """ User input for meme information """
@@ -69,7 +69,7 @@ def meme_post():
     path = None
 
     return render_template('meme.html', path=path)
-
+'''
 
 if __name__ == "__main__":
     app.run()
