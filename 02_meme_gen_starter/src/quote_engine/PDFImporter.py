@@ -2,6 +2,7 @@ from .IngestorInterface import IngestorInterface
 import os
 import random
 import subprocess
+from .QuoteModel import QuoteModel
 
 class PDFImporter(IngestorInterface):
     file_exts = [pdf]
@@ -14,10 +15,11 @@ class PDFImporter(IngestorInterface):
         call = subprocess.call('pdftotext', path, tmp_file)
         quotes = []
         file_ref = open(tmp_file, 'r')
-        for quote in file_ref.readlines():
-            quote = line.strip('\n\r').strip()
+        for line in file_ref.readlines():
+            line = line.strip('\n\r').strip()
             if len(line) > 0:
-                quotes.append(line)
+                line = line.split('-')
+                quotes.append(QuoteModel(*line))
 
         file_ref.close()
         os.remove(file_ref)

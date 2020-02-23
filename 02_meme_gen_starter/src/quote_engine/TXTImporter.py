@@ -1,4 +1,5 @@
 from .IngestorInterface import IngestorInterface
+from .QuoteModel import QuoteModel
 
 class TXTImporter(IngestorInterface):
     file_exts = [txt]
@@ -7,9 +8,11 @@ class TXTImporter(IngestorInterface):
         if not can_ingest(path):
             raise Exception('Cannot ingest this file')
         quotes = []
-        file_ref = open(path)
-        for quote in file_ref.readlines():
-            quote = line.strip('\n\r').strip()
-            if len(quote) > 0:
-                quotes.append(quote)
+        file_ref = open(path, 'r')
+        for line in file_ref.readlines():
+            line = line.strip('\n\r').strip()
+            if len(line) > 0:
+                line = line.split('-')
+                quotes.append(QuoteModel(*line))
+        file_ref.close()
         return quotes

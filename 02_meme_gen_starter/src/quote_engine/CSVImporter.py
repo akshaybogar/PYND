@@ -1,5 +1,6 @@
 from .IngestorInterface import IngestorInterface
 import pandas as pd
+from .QuoteModel import QuoteModel
 
 class CSVImporter(IngestorInterface):
     file_exts = [csv]
@@ -11,6 +12,5 @@ class CSVImporter(IngestorInterface):
         df = pd.read_csv(path)
 
         for index, row in df.iterrows():
-            quote = '{} - {}'.format(row['body'], row['author'])
-            quotes.append(quote)
+            quotes.append(QuoteModel(*row))
         return quotes
