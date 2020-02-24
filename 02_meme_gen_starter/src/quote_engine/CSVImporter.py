@@ -3,10 +3,11 @@ import pandas as pd
 from .QuoteModel import QuoteModel
 
 class CSVImporter(IngestorInterface):
-    file_exts = [csv]
+    file_exts = ['csv']
 
+    @classmethod
     def parse(cls, path):
-        if not can_ingest(path):
+        if not cls.can_ingest(path):
             raise Exception('Cannot ingest this file')
         quotes = []
         df = pd.read_csv(path)

@@ -5,10 +5,11 @@ import subprocess
 from .QuoteModel import QuoteModel
 
 class PDFImporter(IngestorInterface):
-    file_exts = [pdf]
+    file_exts = ['pdf']
 
+    @classmethod
     def parse(cls, path):
-        if not can_ingest(path):
+        if not can_ingest(cls, path):
             raise Exception('Cannot ingest this file')
 
         tmp_file = '{}.txt'.format(random.randint(0, 100000))

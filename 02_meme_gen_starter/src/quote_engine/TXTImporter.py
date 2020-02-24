@@ -2,10 +2,11 @@ from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 
 class TXTImporter(IngestorInterface):
-    file_exts = [txt]
+    file_exts = ['txt']
 
+    @classmethod
     def parse(cls, path):
-        if not can_ingest(path):
+        if not cls.can_ingest(path):
             raise Exception('Cannot ingest this file')
         quotes = []
         file_ref = open(path, 'r')
