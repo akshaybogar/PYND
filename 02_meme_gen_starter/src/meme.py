@@ -1,8 +1,14 @@
+'''
+This file reads values from user and generate meme accordingly. If values are
+not provided, random meme is generated.
+'''
+
 import os
 import random
 import argparse
 from meme_engine import MemeEngine
 from quote_engine import Ingestor, QuoteModel
+
 
 def generate_meme(path=None, body=None, author=None):
     """ Generate a meme given an path and a quote """
@@ -22,7 +28,7 @@ def generate_meme(path=None, body=None, author=None):
     if body is None:
         quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
                        './_data/DogQuotes/DogQuotesDOCX.docx',
-                       #'./_data/DogQuotes/DogQuotesPDF.pdf',
+                       './_data/DogQuotes/DogQuotesPDF.pdf',
                        './_data/DogQuotes/DogQuotesCSV.csv']
         quotes = []
         for f in quote_files:
@@ -40,6 +46,9 @@ def generate_meme(path=None, body=None, author=None):
 
 
 if __name__ == "__main__":
+    '''
+    Reads optional arguments from the user using argparse.
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument('--path')
     parser.add_argument('--body')

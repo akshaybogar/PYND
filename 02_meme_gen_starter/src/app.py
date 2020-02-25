@@ -1,3 +1,7 @@
+'''
+This file contains the flask app.
+'''
+
 import random
 import os
 import requests
@@ -7,17 +11,22 @@ from flask import Flask, render_template, abort, request
 from quote_engine import Ingestor
 from meme_engine import MemeEngine
 
-app = Flask(__name__)
 
+#Creating flask app with unique name
+app = Flask(__name__)
+#Creating MemeEngine class
 meme = MemeEngine('./static')
 
 
 def setup():
-    """ Load all resources """
-
+    '''
+    Loads all resources. Returns random quote and an image from a list of
+    quotes and images respectively. The quotes are read from the ingestors
+    defined in the quote_engine module.
+    '''
     quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
                    './_data/DogQuotes/DogQuotesDOCX.docx',
-                   #'./_data/DogQuotes/DogQuotesPDF.pdf',
+                   './_data/DogQuotes/DogQuotesPDF.pdf',
                    './_data/DogQuotes/DogQuotesCSV.csv']
 
     quotes = []
@@ -39,11 +48,6 @@ quotes, imgs = setup()
 def meme_rand():
     """ Generate a random meme """
 
-    # @TODO:
-    # Use the random python standard library class to:
-    # 1. select a random image from imgs array
-    # 2. select a random quote from the quotes array
-
     img = random.choice(imgs)
     quote = random.choice(quotes)
     path = meme.make_meme(img, quote.body, quote.author)
@@ -59,7 +63,10 @@ def meme_form():
 
 @app.route('/create', methods=['POST'])
 def meme_post():
-    """ Create a user defined meme """
+    """ Create a user defined meme.
+    Reads the image, quote and author values from html form and
+    generates a meme using the input values.
+    """
 
     img_url = request.form.get('image_url')
     quote = request.form.get('body')

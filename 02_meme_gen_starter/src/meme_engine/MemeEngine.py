@@ -1,12 +1,25 @@
+'''
+This file contains MemeEngine class.
+'''
+
 from PIL import Image
 from random import randint
 import os
 from . import MemeHelper as mh
 
+
 class MemeEngine():
     def __init__(self, save_loc):
         self.save_loc = save_loc
 
+    '''
+    make_meme method takes image file path, text(quote), author of the quote
+    as inputs.
+    mak method first resizes the image keeping the aspect ratio, writes the
+    quote on the image along with the author and returns the path of the
+    modified image.
+    All helper functions are imported from MemeHelper file. 
+    '''
     def make_meme(self, img_path, txt, author, width=500):
         try:
             img = Image.open(img_path)
