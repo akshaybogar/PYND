@@ -6,7 +6,6 @@ import random
 import os
 import requests
 import shutil
-import urllib.request
 from flask import Flask, render_template, abort, request
 from quote_engine import Ingestor
 from meme_engine import MemeEngine

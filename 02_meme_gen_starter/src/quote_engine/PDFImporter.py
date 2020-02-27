@@ -19,7 +19,7 @@ class PDFImporter(IngestorInterface):
     '''
     @classmethod
     def parse(cls, path):
-        if not can_ingest(cls, path):
+        if not cls.can_ingest(path):
             raise Exception('Cannot ingest this file')
 
         tmp_file = '{}.txt'.format(random.randint(0, 100000))
@@ -33,5 +33,5 @@ class PDFImporter(IngestorInterface):
                 quotes.append(QuoteModel(*line))
 
         file_ref.close()
-        os.remove(file_ref)
+        os.remove(tmp_file)
         return quotes
